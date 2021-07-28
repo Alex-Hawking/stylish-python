@@ -20,7 +20,7 @@ For basic styling use the `style()` method. All styles must be declared in a dic
 sprint("blue and bold").style({"color": "blue", "font": "bold"})
 sprint("hex and rgb is accepted too!").style({"color": "#FFFFFF", "background": (0,0,0)})
 ```
-![Output of above code](https://i.imgur.com/r0uI0Hb.jpg#codeimg)
+<img src="https://i.imgur.com/r0uI0Hb.jpg" style="height: 50px; widht: auto; border-radius: 5px;" alt="Output of above code">
 
 At the moment the following styles can be applied:
 * `"color"`: sets the foreground color
@@ -49,9 +49,3 @@ sprint("This is a white, bold title").id("title")
 sprint("This is a grey, italic subtitle").id("subtitle")
 ```
 As you can see in the above example a stylesheet was imported using the `.stylesheet()` method. Each dictionary in a stylesheet should have an `"id"` tag, this tells stylish what styles should be used where. The `id()` method accepts a string which should match that of the `"id"` value in the dictionary containing the styles you want to apply.
-
-img[src~="codeimg"] {
-  height: 50px;
-  widht: auto;
-  border-radius: 5px;
-}
