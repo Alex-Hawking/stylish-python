@@ -20,7 +20,7 @@ For basic styling use the `style()` method. All styles must be declared in a dic
 sprint("blue and bold").style({"color": "blue", "font": "bold"})
 sprint("hex and rgb is accepted too!").style({"color": "#FFFFFF", "background": (0,0,0)})
 ```
-<img src="https://i.imgur.com/r0uI0Hb.jpg" height="50px" border-radius="10px">
+<img src="https://i.imgur.com/4Y09IcC.jpg" height="75px" border-radius="10px">
 
 At the moment the following styles can be applied:
 * `"color"`: sets the foreground color
