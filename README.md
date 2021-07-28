@@ -6,12 +6,12 @@ First import the libaray with:
 ```python
 from stylish_py import *
 ```
-## Usage
+### Usage
 All output must use `sprint()` (stylish print) as below:
 ```python
 sprint("This will be styled")
 ```
-`sprint()` accepts both strings and integer values.
+`sprint()` accepts both strings and integer values and will print whatever is passed into it onto the console. It will print styled text if styled are applied as intstructed below.
 
 ### The `style()` method
 
@@ -31,6 +31,7 @@ Both `"color"` and `"background"` accept rgb values (in 3 element tuple containi
 ### Stylesheets
 
 stylish allows you to use stylesheets to easily apply styles to multiple elements through the use of the `id()` method. A stylesheet can either be imported from a `.ass` (awesome style sheet) file or defined inline as shown below. At the moment only one style sheet can be used at once. Below are two examples of stylesheet usage:
+
 ***style.ass***
 ```
 {"id": "title", "color": (255, 255, 255), "font": "bold"}
