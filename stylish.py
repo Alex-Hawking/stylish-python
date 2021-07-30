@@ -1,4 +1,4 @@
-import textwrap
+import textwrap, sys, ast
 
 COLORS = {
     "red": 196,
@@ -14,14 +14,14 @@ FONTS = {
     "invisible": 8
 }
 
-pallette = {}
-stylesheet = {}
+used_palette = {}
+used_stylesheet = {}
+end_style = ""
 
 class sprint:
     def __init__(self, input=""):
         self.input = input
         self.output = ""
-        self.end = "\033[0m"
     
     def __del__(self):
         if self.input:
@@ -29,6 +29,35 @@ class sprint:
                 print(self.output)
             else:
                 print(self.input)
+                
+    def __palette(self, new_palette):
+        global used_palette
+        if type(new_palette) == dict:
+            used_palette = new_palette
+        elif type(new_palette) == str:
+            if new_palette[-3:] == "acp":
+                used_palette = open(new_palette,"r").read()
+                used_palette = ast.literal_eval(used_palette)
+            
+    def __stylesheet(self, new_stylesheet):
+        global used_stylesheet
+        if type(new_stylesheet) == list and all(isinstance(style, dict) for style in new_stylesheet):
+            used_stylesheet = new_stylesheet
+        elif type(new_stylesheet) == str:
+            if new_stylesheet[-3:] == "ass":
+                used_stylesheet = open(new_stylesheet,"r").read().splitlines()
+                used_stylesheet = list(filter(None, used_stylesheet))
+                used_stylesheet = [ast.literal_eval(style) for style in used_stylesheet]
+
+    def init(self, end=True, stylesheet=None, palette=None):
+        if type(end) == bool:
+            if end:
+                global end_style
+                end_style = "\033[0m"
+        if stylesheet:
+            self.__stylesheet(stylesheet)
+        if palette:
+            self.__palette(palette)
             
     def __hex_to_rgb(self, hex):
         letters = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -60,55 +89,46 @@ class sprint:
             return FONTS[font]
         
     def __append_style(self, styles):
-        color = "38;5;0"
-        background = "48;5;0"
+        color = "39"
+        background = "49"
         font = "0"
         if type(styles) == dict:
                 for style in styles:
                     if style == "color":
-                        if styles[style] in pallette:
-                            color = self.__color(pallette[styles[style]], "3")
+                        if styles[style] in used_palette:
+                            color = self.__color(used_palette[styles[style]], "3")
                         else:
                             color = self.__color(styles[style], "3")
                     elif style =="background": 
-                        if styles[style] in pallette:
-                            background = self.__color(pallette[styles[style]], "4")
+                        if styles[style] in used_palette:
+                            background = self.__color(used_palette[styles[style]], "4")
                         else:
                             background = self.__color(styles[style], "4")
                     elif style == "font":
                         font = self.__font(styles[style])                               
         return f"\033[{font};{color};{background}m"
 
-    def pallette(self, new_palette):
-        global pallette
-        if type(new_palette) == dict:
-            pallette = new_palette
-            
-    def stylesheet(self, new_stylesheet):
-        global stylesheet
-        if type(new_stylesheet) == list and all(isinstance(style, dict) for style in new_stylesheet):
-            stylesheet = new_stylesheet
             
     def id(self, element_id):
         if type(element_id) == str:
-            for style in stylesheet:
+            for style in used_stylesheet:
                 if element_id == style["id"]:
                     del style["id"]
-                    self.output += f"{self.__append_style(style)}{self.input}{self.end}"
+                    self.output += f"{self.__append_style(style)}{self.input}{end_style}"
         elif type(element_id) == list and type(self.input) == list and len(self.input) == len(element_id):
                 for loop_id in element_id:
-                    for style in stylesheet:
+                    for style in used_stylesheet:
                         try:
                             if loop_id == style["id"]:
                                 del style["id"]
-                                self.output += f"{self.__append_style(style)}{self.input[element_id.index(loop_id)]}{self.end}"
+                                self.output += f"{self.__append_style(style)}{self.input[element_id.index(loop_id)]}{end_style}"
                         except:
                             pass
 
     def style(self, styles):
         if type(self.input) == str:
-            self.output += f"{self.__append_style(styles)}{self.input}{self.end}"
+            self.output += f"{self.__append_style(styles)}{self.input}{end_style}"
         elif type(self.input) == list:
             if len(self.input) == len(styles) and type(styles) == list:
                 for style in styles:
-                    self.output += f"{self.__append_style(style)}{self.input[styles.index(style)]}{self.end}"
+                    self.output += f"{self.__append_style(style)}{self.input[styles.index(style)]}{end_style}"
