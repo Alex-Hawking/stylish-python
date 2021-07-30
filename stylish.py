@@ -3,7 +3,14 @@ import textwrap, sys, ast
 COLORS = {
     "red": 196,
     "green": 46,
-    "blue": 21
+    "blue": 21,
+    "yellow": 226,
+    "aqua": 51,
+    "magenta": 201,
+    "pink": 205,
+    "chocolate": 166,
+    "white": 230,
+    "black": 232
 }
 
 FONTS = {

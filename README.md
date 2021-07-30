@@ -136,3 +136,28 @@ sprint().init(
 sprint("This is a custom color!").style({"color": "turquoise"})
 sprint("So is this!").style({"color": "sage"})
 ```
+
+## Default values
+
+### Colors
+
+Color | RGB
+--- | ---
+red | (255, 0, 0)
+green | (0, 255, 0)
+blue | (0, 0, 255)
+yellow | (255, 255, 0)
+aqua | (0, 255, 255)
+magenta | (255, 0, 255)
+pink | (255, 105, 180)
+chocolate | (255, 105, 30)
+white | (255, 255, 255)
+black | (0, 0,0 )
+
+### FONTS
+
+* bold
+* dim
+* italic
+* underline
+* invisible
