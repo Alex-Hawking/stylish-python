@@ -39,6 +39,17 @@ The `init()` method should be called at the start of the file. At the moment the
 * `palette`: Can either accept a string that points to the path of the `.acp` file or to a variable containing a dictionary of custom colors (palettes are explained below)
 * `end`: Can accept a boolean, either `True` or `False`. If set to `False` the style applied to the line above will continue on through all lines. Recommend to set to `True`
 
+***file.py***
+```python
+from stylish_py import *
+
+sprint().init(
+    end=True,
+    stylesheet="./path/to/stylesheet.ass",
+    palette="./path/to/palette.acp"
+)
+```
+
 ## Stylesheets
 
 stylish allows you to use stylesheets to easily apply styles to multiple elements through the use of the `id()` and `stylesheet()` methods. A stylesheet can either be imported from a `.ass` (awesome style sheet) file or defined inline as shown below. At the moment only one style sheet can be used at once. Below are two examples of stylesheet usage:
