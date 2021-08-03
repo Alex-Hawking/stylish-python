@@ -3,6 +3,8 @@ An intuitive way to style python terminal output
 
 ## Import
 
+I am currently uploading the library to PyPi. For now simply clone or download the `.py` file and place it into your working directory.
+
 First import the libaray with:
 ```python
 from stylish_py import *
